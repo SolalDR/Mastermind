@@ -10,7 +10,6 @@ import java.util.Random;
  */
 
 
-
 public class Game {
     Score[] scores;
     Integer numTour;
@@ -58,10 +57,8 @@ public class Game {
 
     public String[] generateSecretComb(){
         String[] secretsComb = new String[4];
-
         for(int i=0; i<secretsComb.length; i++){
             secretsComb[i] = this.getRandomHex();
-            System.out.println(secretsComb[i]);
         }
         setSecretsComb(secretsComb);
         return secretsComb;

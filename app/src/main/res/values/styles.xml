@@ -20,7 +20,12 @@
     <style name="colorCircle" parent="@android:style/TextAppearance">
         <item name="android:layout_width">20dp</item>
         <item name="android:layout_height">20dp</item>
-        <item name="android:background">@drawable/circle</item>
+        <item name="android:layout_marginLeft">9dp</item>
+        <item name="android:layout_marginRight">9dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:background">#CCCCCC</item>
+        <item name="android:rotation">45</item>
     </style>
 
 

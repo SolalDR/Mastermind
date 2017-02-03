@@ -44,7 +44,7 @@ public class Score {
 
         for(int j=0; j<tmpAct.length; j++){
             for(int i=0; i<tmpRef.length; i++){
-                if(tmpRef[i] == tmpAct[j]){
+                if(tmpRef[i] == tmpAct[j] && tmpAct[j]!=null){
                     badPlace++;
                     tmpRef[i] = null;
                     tmpAct[j] = null;
@@ -60,7 +60,7 @@ public class Score {
         return reference;
     }
 
-    public void setReference(String[] reference) {
+    private void setReference(String[] reference) {
         this.reference = reference;
     }
 
@@ -68,7 +68,7 @@ public class Score {
         return actual;
     }
 
-    public void setActual(String[] actual) {
+    private void setActual(String[] actual) {
         this.actual = actual;
     }
 
@@ -76,7 +76,7 @@ public class Score {
         return countGoodPosition;
     }
 
-    public void setCountGoodPosition(Integer countGoodPosition) {
+    private void setCountGoodPosition(Integer countGoodPosition) {
         this.countGoodPosition = countGoodPosition;
     }
 
@@ -84,7 +84,9 @@ public class Score {
         return countBadPosition;
     }
 
-    public void setCountBadPosition(Integer countBadPosition) {
+    private void setCountBadPosition(Integer countBadPosition) {
         this.countBadPosition = countBadPosition;
     }
+
+
 }
