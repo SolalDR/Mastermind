@@ -13,6 +13,15 @@
     tools:context="com.solaldussout_revel.mastermind.NewGameActivity"
     tools:showIn="@layout/activity_new_game">
 
+    <TextView
+        android:text="Mastermind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="66dp"
+        android:layout_alignBottom="@+id/newGameButton"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif" />
+
     <Button
         android:text="Jouer !"
         android:layout_width="wrap_content"
@@ -22,11 +31,13 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:text="Mastermind"
+    <Button
+        android:text="Rules"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
-        android:layout_alignBottom="@+id/newGameButton"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/newGameButton"
+        android:layout_alignStart="@+id/newGameButton"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/button" />
 </RelativeLayout>
