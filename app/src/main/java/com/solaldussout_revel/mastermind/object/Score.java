@@ -5,14 +5,14 @@ package com.solaldussout_revel.mastermind.object;
  */
 
 public class Score {
-    private Long[] reference;
-    private Long[] actual;
+    private String[] reference;
+    private String[] actual;
     private Integer countGoodPosition;
     private Integer countBadPosition;
 
-    public Score(long[] ref, long[] act){
-        Long[] referenceTab = new Long[4];
-        Long[] actual = new Long[4];
+    public Score(String[] ref, String[] act){
+        String[] referenceTab = new String[4];
+        String[] actual = new String[4];
 
         for(int i=0; i<ref.length; i++){
             referenceTab[i] = ref[i];
@@ -27,22 +27,48 @@ public class Score {
     }
 
     public void setCounts(){
+        String[] tmpRef = getReference();
+        String[] tmpAct = getActual();
+        Integer goodPlace = 0;
+        Integer badPlace = 0;
 
+        for(int i=0; i<tmpRef.length; i++){
+            for(int j=0; j<tmpAct.length; j++){
+                if(tmpRef[i] == tmpAct[j] && i == j){
+                    goodPlace++;
+                    tmpRef[i] = null;
+                    tmpAct[j] = null;
+                }
+            }
+        }
+
+        for(int j=0; j<tmpAct.length; j++){
+            for(int i=0; i<tmpRef.length; i++){
+                if(tmpRef[i] == tmpAct[j]){
+                    badPlace++;
+                    tmpRef[i] = null;
+                    tmpAct[j] = null;
+                }
+            }
+        }
+
+        this.setCountBadPosition(badPlace);
+        this.setCountGoodPosition(goodPlace);
     }
 
-    public Long[] getReference() {
+    public String[] getReference() {
         return reference;
     }
 
-    public void setReference(Long[] reference) {
+    public void setReference(String[] reference) {
         this.reference = reference;
     }
 
-    public Long[] getActual() {
+    public String[] getActual() {
         return actual;
     }
 
-    public void setActual(Long[] actual) {
+    public void setActual(String[] actual) {
         this.actual = actual;
     }
 
