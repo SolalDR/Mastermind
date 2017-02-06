@@ -67,14 +67,14 @@ public class Game {
     public void setColors(){
         String[] colorsSet = new String[8];
 
-        colorsSet[0] = "#E10000";
-        colorsSet[1] = "#F6FE00";
-        colorsSet[2] = "#00DE2C";
-        colorsSet[3] = "#006FDE";
-        colorsSet[4] = "#FEAD44";
-        colorsSet[5] = "#FEFEFE";
-        colorsSet[6] = "#8000D5";
-        colorsSet[7] = "#F600FE";
+        colorsSet[0] = "#FFE10000";
+        colorsSet[1] = "#FFF6FE00";
+        colorsSet[2] = "#FF00DE2C";
+        colorsSet[3] = "#FF006FDE";
+        colorsSet[4] = "#FFFEAD44";
+        colorsSet[5] = "#FFFEFEFE";
+        colorsSet[6] = "#FF8000D5";
+        colorsSet[7] = "#FFF600FE";
 
         this.setColors(colorsSet);
     }
@@ -111,12 +111,12 @@ public class Game {
         }
         newScore = new Score(this.getSecretsComb(), actualScore);
 
-
-
-        for(int i = 0; i<actScores.length; i++){
-            newScores[i] = actScores[i];
+        if(actScores!=null){
+            for(int i = 0; i<actScores.length; i++){
+                newScores[i] = actScores[i];
+            }
         }
-        newScores[actScores.length] = newScore;
+        newScores[newScores.length-1] = newScore;
 
         this.setScores(newScores);
     };

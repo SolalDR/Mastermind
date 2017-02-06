@@ -5,14 +5,14 @@
     <color name="colorAccent">#FF4081</color>
 
 
-    <color name="color1">#FF4081</color>
-    <color name="color2">#E10000</color>
-    <color name="color3">#00DE2C</color>
-    <color name="color4">#006FDE</color>
-    <color name="color5">#FEAD44</color>
-    <color name="color6">#FEFEFE</color>
-    <color name="color7">#8000D5</color>
-    <color name="color8">#F600FE</color>
+    <color name="color1">#FFFF4081</color>
+    <color name="color2">#FFE10000</color>
+    <color name="color3">#FF00DE2C</color>
+    <color name="color4">#FF006FDE</color>
+    <color name="color5">#FFFEAD44</color>
+    <color name="color6">#FFFEFEFE</color>
+    <color name="color7">#FF8000D5</color>
+    <color name="color8">#FFF600FE</color>
 
 
 </resources>
