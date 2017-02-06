@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="Recommencez une partie" />
-    <item android:title="Les règles" />
+    <item
+        android:title="Terminer partie"
+        android:id="@+id/stopGameButton" />
+    <item
+        android:title="Les règles"
+        android:id="@+id/rulesButton" />
 </menu>

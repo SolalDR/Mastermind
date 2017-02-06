@@ -162,7 +162,7 @@
             android:layout_height="match_parent">
 
             <Button
-                android:text="Validez score"
+                android:text="Validez"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"

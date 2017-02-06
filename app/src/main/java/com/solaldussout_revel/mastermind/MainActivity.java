@@ -22,7 +22,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends MenuParentActivity {
 
     Game game;
     TextView activeView;
@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         this.game = NewGameActivity.getGame();
-        colors = this.game.getColors();
+        setContentView(R.layout.activity_main);
+        colors = game.getColors();
 
 
         gridColor = (GridLayout) findViewById(R.id.gridColor);
@@ -64,20 +64,10 @@ public class MainActivity extends AppCompatActivity {
 
         manageButtonListener();
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        System.out.println(toolbar);
-        setSupportActionBar(toolbar);
-
+        initToolbar();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
 
-        return true;
-    }
 
 
     public void genRowTable(Score last){
