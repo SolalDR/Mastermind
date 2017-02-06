@@ -5,25 +5,67 @@
     android:id="@+id/content_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.solaldussout_revel.mastermind.MainActivity"
     tools:showIn="@layout/activity_main"
-    android:elevation="1dp">
+    android:elevation="1dp"
+    android:background="@drawable/space">
 
-    <TableLayout
-        android:layout_height="match_parent"
+
+    <Chronometer
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/chrono"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textSize="30sp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:id="@+id/tableScore">
+        android:textColor="#FFFFFFFF"
+        android:layout_alignParentStart="true" />
 
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chrono"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:textColor="#FFFFFFFF"
+        android:id="@+id/tourNum" />
 
-    </TableLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/gridColor"
+        android:layout_alignParentTop="false"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_below="@+id/tourNum">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingRight="30dp"
+            android:paddingLeft="30dp">
+
+            <TableLayout
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:id="@+id/tableScore"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:background="#22FFFFFF">
+
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <GridLayout
         android:layout_width="match_parent"
@@ -70,47 +112,68 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:background="#DDD"
+        android:background="@color/black"
+        android:id="@+id/barSelect"
+        android:rotationX="1.0"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/barSelect"
-        android:rotationX="1.0">
+        android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/color1Button"
             style="@style/colorCircle"
             android:focusableInTouchMode="true"
             android:focusable="true"
-            android:layout_marginLeft="40dp" />
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="0dp" />
 
         <TextView
             android:id="@+id/color2Button"
             android:focusableInTouchMode="true"
             android:focusable="true"
-            style="@style/colorCircle"/>
+            style="@style/colorCircle"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="center_vertical" />
 
         <TextView
             android:id="@+id/color3Button"
             android:focusableInTouchMode="true"
             android:focusable="true"
-            style="@style/colorCircle"/>
+            style="@style/colorCircle"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_gravity="center_vertical" />
 
         <TextView
             android:id="@+id/color4Button"
             android:focusableInTouchMode="true"
             android:focusable="true"
-            style="@style/colorCircle" />
+            style="@style/colorCircle"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="0dp" />
 
-        <Button
-            android:text="Validez"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:id="@+id/validScoreButton"
-            android:layout_marginTop="7dp"
-            android:layout_marginLeft="40dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:text="Validez score"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:id="@+id/validScoreButton"
+                android:hapticFeedbackEnabled="true"
+                android:layout_gravity="right|center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:background="@android:color/white" />
+        </RelativeLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

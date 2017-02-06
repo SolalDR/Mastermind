@@ -1,9 +1,6 @@
 package com.solaldussout_revel.mastermind.object;
 
-import android.annotation.TargetApi;
-import android.annotation.TargetApi;
 import java.lang.Long;
-import java.util.Random;
 
 /**
  * Created by Solal on 03/02/2017.
@@ -13,15 +10,44 @@ import java.util.Random;
 public class Game {
     Score[] scores;
     Integer numTour;
-    Integer tourMax = 12;
+    Integer tourMax;
     String[] secretsComb;
     String[] colors;
+    Long timeout;
+    Boolean won;
 
     public Game() {
-        this.setNumTour(0);
+        this.setNumTour(1);
         this.setColors();
+        this.setTourMax(12);
+        this.setWon(false);
         this.generateSecretComb();
 
+    }
+
+
+    public Long getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(Long timeout) {
+        this.timeout = timeout;
+    }
+
+    public Boolean getWon() {
+        return won;
+    }
+
+    public void setWon(Boolean won) {
+        this.won = won;
+    }
+
+    public Integer getTourMax() {
+        return tourMax;
+    }
+
+    public void setTourMax(Integer tourMax) {
+        this.tourMax = tourMax;
     }
 
     public String[] getColors() {
@@ -118,8 +144,11 @@ public class Game {
             }
         }
         newScores[newScores.length-1] = newScore;
-
         this.setScores(newScores);
+
+        if(newScore.getCountGoodPosition() == 4){
+            this.setWon(true);
+        }
     };
 
     public Score getLastScore(){

@@ -3,35 +3,34 @@ package com.solaldussout_revel.mastermind;
 import com.solaldussout_revel.mastermind.object.Game;
 import com.solaldussout_revel.mastermind.object.Score;
 
-import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.ContextThemeWrapper;
-import android.view.LayoutInflater;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.GridLayout;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 
 public class MainActivity extends AppCompatActivity {
 
     Game game;
     TextView activeView;
+    TextView tourNum;
+    Chronometer chrono;
     GridLayout gridColor;
     TableLayout tableScore;
     String[] colors;
     Button validScoreButton;
+    Toolbar toolbar;
+    Boolean isStart;
 
     TextView color1Button;
     TextView color2Button;
@@ -45,33 +44,38 @@ public class MainActivity extends AppCompatActivity {
         this.game = NewGameActivity.getGame();
         colors = this.game.getColors();
 
-        //displaySecret();
+
         gridColor = (GridLayout) findViewById(R.id.gridColor);
-        validScoreButton = (Button) findViewById(R.id.validScoreButton);
+
+        chrono = (Chronometer) findViewById(R.id.chrono);
+        chrono.start();
+        isStart = true;
+        tourNum = (TextView) findViewById(R.id.tourNum);
+        tourNum.setText("Tour : "+game.getNumTour());
+
         tableScore = (TableLayout) findViewById(R.id.tableScore);
-
-
-
         tableScore.setOnClickListener(setTableClickListener);
+
+        validScoreButton = (Button) findViewById(R.id.validScoreButton);
         validScoreButton.setOnClickListener(validScoreButtonListener);
 
         manageButtonListener();
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        System.out.println(toolbar);
+        setSupportActionBar(toolbar);
+
     }
 
-    public void displaySecret(){
-        String[] secrets = this.game.getSecretsComb();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
 
-        TextView view1 = (TextView) findViewById(R.id.square1);
-        TextView view2 = (TextView) findViewById(R.id.square2);
-        TextView view3 = (TextView) findViewById(R.id.square3);
-        TextView view4 = (TextView) findViewById(R.id.square4);
-
-        view1.setBackgroundColor(Color.parseColor(secrets[0]));
-        view2.setBackgroundColor(Color.parseColor(secrets[1]));
-        view3.setBackgroundColor(Color.parseColor(secrets[2]));
-        view4.setBackgroundColor(Color.parseColor(secrets[3]));
+        return true;
     }
+
 
     public void genRowTable(Score last){
         TableRow tableRow = (TableRow)getLayoutInflater().inflate(R.layout.table_row_layout, null);
@@ -150,6 +154,17 @@ public class MainActivity extends AppCompatActivity {
         genRowTable(last);
         clearColorButton();
         this.game.nextTour();
+        if(game.getNumTour()>game.getTourMax()||game.getWon() == true){
+            chrono.stop();
+            game.setTimeout(chrono.getBase());
+            if(game.getWon() == true){
+                tourNum.setText("Bien joué ! "+game.getNumTour()+" tours");
+            } else {
+                tourNum.setText("Game Over Bitch");
+            }
+        } else {
+            tourNum.setText("Tour : "+game.getNumTour());
+        }
     }
 
     View.OnClickListener setColorButtonListener = new View.OnClickListener() {
@@ -164,6 +179,9 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             if (activeView != null) {
                 activeView.setBackground(v.getBackground());
+                if(isStart == false){
+                    chrono.start();
+                }
             }
         }
     };
