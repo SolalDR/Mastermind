@@ -23,6 +23,9 @@ public class NewGameActivity extends AppCompatActivity {
 
         Button btnNewGame = (Button) findViewById(R.id.newGameButton);
         btnNewGame.setOnClickListener(setNewGameListener);
+
+        Button btnRules = (Button) findViewById(R.id.RulesButton);
+        btnRules.setOnClickListener(setRulesListener);
     }
 
     View.OnClickListener setNewGameListener = new View.OnClickListener() {
@@ -30,6 +33,14 @@ public class NewGameActivity extends AppCompatActivity {
         public void onClick(View view) {
             setGame(new Game());
             Intent intent = new Intent(getBaseContext(), MainActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    View.OnClickListener setRulesListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(getBaseContext(), RulesActivity.class);
             startActivity(intent);
         }
     };
