@@ -61,4 +61,18 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
+    <com.solaldussout_revel.mastermind.widget.RobotoTextView
+        android:text="Mastermind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:letterSpacing=".2"
+        android:id="@+id/highscoretext"
+        app:font="Roboto-Regular.ttf"
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/newGameButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62dp" />
+
+
 </RelativeLayout>

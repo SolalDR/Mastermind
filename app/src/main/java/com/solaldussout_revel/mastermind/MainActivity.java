@@ -3,9 +3,12 @@ package com.solaldussout_revel.mastermind;
 import com.solaldussout_revel.mastermind.object.Game;
 import com.solaldussout_revel.mastermind.object.Score;
 
+
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -154,11 +157,13 @@ public class MainActivity extends AppCompatActivity {
         genRowTable(last);
         clearColorButton();
         this.game.nextTour();
+
         if(game.getNumTour()>game.getTourMax()||game.getWon() == true){
             chrono.stop();
             game.setTimeout(chrono.getBase());
             if(game.getWon() == true){
                 tourNum.setText("Bien joué ! "+game.getNumTour()+" tours");
+                manageHighScore();
             } else {
                 tourNum.setText("Game Over Bitch");
             }
@@ -173,6 +178,22 @@ public class MainActivity extends AppCompatActivity {
             v.requestFocus();
         }
     };
+
+    public void manageHighScore(){
+
+        //Récupérer meilleur score (Chrono)
+        //chrono.getBase();
+
+        //Tester actuel et meilleur
+
+        //Update si actuel > meilleur
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("highscore", this.game.getScores().length);
+        editor.commit();
+    }
+
 
     View.OnClickListener setColorListButtonClick = new View.OnClickListener() {
         @Override

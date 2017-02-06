@@ -1,6 +1,8 @@
 package com.solaldussout_revel.mastermind;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
+import android.widget.TextView;
+
 import com.solaldussout_revel.mastermind.object.Game;
 
 
@@ -26,6 +30,12 @@ public class NewGameActivity extends AppCompatActivity {
 
         Button btnRules = (Button) findViewById(R.id.RulesButton);
         btnRules.setOnClickListener(setRulesListener);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        TextView highscore = (TextView) findViewById(R.id.highscoretext);
+        Integer highScoreVal = preferences.getInt("highscore",0);
+        highscore.setText("Meilleur Score : " + highScoreVal.toString());
+
     }
 
     View.OnClickListener setNewGameListener = new View.OnClickListener() {

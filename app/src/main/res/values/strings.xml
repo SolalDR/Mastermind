@@ -3,4 +3,5 @@
     <string name="title_activity_new_game">NewGame</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_rules">RulesActivity</string>
+    <string name="title_activity_shared_preference">SharedPreference</string>
 </resources>

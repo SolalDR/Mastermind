@@ -1,5 +1,8 @@
 package com.solaldussout_revel.mastermind.object;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 /**
  * Created by Solal on 03/02/2017.
  */
