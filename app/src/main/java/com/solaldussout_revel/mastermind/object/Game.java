@@ -21,6 +21,7 @@ public class Game {
         this.setNumTour(0);
         this.setColors();
         this.generateSecretComb();
+
     }
 
     public String[] getColors() {
@@ -67,14 +68,14 @@ public class Game {
     public void setColors(){
         String[] colorsSet = new String[8];
 
-        colorsSet[0] = "#FFE10000";
-        colorsSet[1] = "#FFF6FE00";
-        colorsSet[2] = "#FF00DE2C";
-        colorsSet[3] = "#FF006FDE";
-        colorsSet[4] = "#FFFEAD44";
-        colorsSet[5] = "#FFFEFEFE";
-        colorsSet[6] = "#FF8000D5";
-        colorsSet[7] = "#FFF600FE";
+        colorsSet[0] = "#ffe10000";
+        colorsSet[1] = "#fff6fe00";
+        colorsSet[2] = "#ff00de2c";
+        colorsSet[3] = "#ff006fde";
+        colorsSet[4] = "#fffead44";
+        colorsSet[5] = "#fffefefe";
+        colorsSet[6] = "#ff8000d5";
+        colorsSet[7] = "#fff600fe";
 
         this.setColors(colorsSet);
     }
@@ -120,6 +121,15 @@ public class Game {
 
         this.setScores(newScores);
     };
+
+    public Score getLastScore(){
+        Score[] actScores = getScores();
+        if(actScores!=null){
+            return actScores[actScores.length-1];
+        } else {
+            return null;
+        }
+    }
 
     public void nextTour(){
         this.setNumTour(this.getNumTour()+1);

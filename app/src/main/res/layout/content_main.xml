@@ -21,6 +21,7 @@
         android:focusableInTouchMode="true"
         android:id="@+id/tableScore">
 
+
     </TableLayout>
 
 

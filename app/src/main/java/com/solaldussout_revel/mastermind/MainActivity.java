@@ -1,6 +1,7 @@
 package com.solaldussout_revel.mastermind;
 
 import com.solaldussout_revel.mastermind.object.Game;
+import com.solaldussout_revel.mastermind.object.Score;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -19,6 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -42,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
         this.game = NewGameActivity.getGame();
         colors = this.game.getColors();
 
+        //displaySecret();
         gridColor = (GridLayout) findViewById(R.id.gridColor);
         validScoreButton = (Button) findViewById(R.id.validScoreButton);
-
         tableScore = (TableLayout) findViewById(R.id.tableScore);
 
 
@@ -56,7 +59,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void genRowTable(){
+    public void displaySecret(){
+        String[] secrets = this.game.getSecretsComb();
+
+        TextView view1 = (TextView) findViewById(R.id.square1);
+        TextView view2 = (TextView) findViewById(R.id.square2);
+        TextView view3 = (TextView) findViewById(R.id.square3);
+        TextView view4 = (TextView) findViewById(R.id.square4);
+
+        view1.setBackgroundColor(Color.parseColor(secrets[0]));
+        view2.setBackgroundColor(Color.parseColor(secrets[1]));
+        view3.setBackgroundColor(Color.parseColor(secrets[2]));
+        view4.setBackgroundColor(Color.parseColor(secrets[3]));
+    }
+
+    public void genRowTable(Score last){
         TableRow tableRow = (TableRow)getLayoutInflater().inflate(R.layout.table_row_layout, null);
         TextView[] textViewsColors = new TextView[4];
 
@@ -64,6 +81,13 @@ public class MainActivity extends AppCompatActivity {
         textViewsColors[1] = (TextView) tableRow.findViewById(R.id.square2);
         textViewsColors[2] = (TextView) tableRow.findViewById(R.id.square3);
         textViewsColors[3] = (TextView) tableRow.findViewById(R.id.square4);
+
+        TextView goodPlace = (TextView) tableRow.findViewById(R.id.goodPlace);
+        TextView badPlace = (TextView) tableRow.findViewById(R.id.badPlace);
+
+        goodPlace.setText(last.getCountGoodPosition().toString());
+        badPlace.setText(last.getCountBadPosition().toString());
+
 
         textViewsColors[0].setBackground(color1Button.getBackground());
         textViewsColors[1].setBackground(color2Button.getBackground());
@@ -79,36 +103,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clearColorButton(){
-        color1Button.setBackground(ColorDrawable.createFromPath("#FFCCCCCC"));
-        color2Button.setBackground(ColorDrawable.createFromPath("#FFCCCCCC"));
-        color3Button.setBackground(ColorDrawable.createFromPath("#FFCCCCCC"));
-        color4Button.setBackground(ColorDrawable.createFromPath("#FFCCCCCC"));
-
+        color1Button.setBackground(new ColorDrawable(0xFFCCCCCC));
+        color2Button.setBackground(new ColorDrawable(0xFFCCCCCC));
+        color3Button.setBackground(new ColorDrawable(0xFFCCCCCC));
+        color4Button.setBackground(new ColorDrawable(0xFFCCCCCC));
     }
 
     View.OnClickListener validScoreButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            ColorDrawable background1 = (ColorDrawable) color1Button.getBackground();
-            ColorDrawable background2 = (ColorDrawable) color2Button.getBackground();
-            ColorDrawable background3 = (ColorDrawable) color3Button.getBackground();
-            ColorDrawable background4 = (ColorDrawable) color4Button.getBackground();
-
             colors = new String[]{
                 getStrFromColorDraw((ColorDrawable) color1Button.getBackground()),
-                getStrFromColorDraw((ColorDrawable) color1Button.getBackground()),
-                getStrFromColorDraw((ColorDrawable) color1Button.getBackground()),
-                getStrFromColorDraw((ColorDrawable) color1Button.getBackground())
+                getStrFromColorDraw((ColorDrawable) color2Button.getBackground()),
+                getStrFromColorDraw((ColorDrawable) color3Button.getBackground()),
+                getStrFromColorDraw((ColorDrawable) color4Button.getBackground())
             };
+
+
 
             Boolean test = true;
             for(int i=0; i<colors.length; i++){
-                if(colors[i] == "#FFCCCCCC"){
+                if(colors[i].equals("#ffcccccc")){
                     test = false;
                 }
             }
 
-            if(test){
+            if(test==true){
                 validTour();
             } else {
                 //Lancer un toast
@@ -124,10 +144,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void validTour(){
         //Rajouter une ligne dans le tableau
-        genRowTable();
+        game.addScore(colors);
+        Score last = game.getLastScore();
 
-        /*clearColorButton();
-        this.game.nextTour();*/
+        genRowTable(last);
+        clearColorButton();
+        this.game.nextTour();
     }
 
     View.OnClickListener setColorButtonListener = new View.OnClickListener() {

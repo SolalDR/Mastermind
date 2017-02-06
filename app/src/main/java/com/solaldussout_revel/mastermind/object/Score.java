@@ -32,9 +32,23 @@ public class Score {
         Integer goodPlace = 0;
         Integer badPlace = 0;
 
+        System.out.println("------------------");
+        for(int i=0; i<tmpAct.length; i++){
+            System.out.println(tmpRef[i]);
+        }
+        System.out.println("------------------");
+        for(int i=0; i<tmpAct.length; i++){
+            System.out.println(tmpAct[i]);
+        }
+        System.out.println("------------------");
+
+
+
         for(int i=0; i<tmpRef.length; i++){
             for(int j=0; j<tmpAct.length; j++){
-                if(tmpRef[i] == tmpAct[j] && i == j){
+                System.out.println(tmpAct[i]);
+                System.out.println(tmpAct[j]);
+                if(tmpRef[i] != null && tmpAct[j]!=null && tmpRef[i].equals(tmpAct[j]) && i == j){
                     goodPlace++;
                     tmpRef[i] = null;
                     tmpAct[j] = null;
@@ -44,7 +58,7 @@ public class Score {
 
         for(int j=0; j<tmpAct.length; j++){
             for(int i=0; i<tmpRef.length; i++){
-                if(tmpRef[i] == tmpAct[j] && tmpAct[j]!=null){
+                if(tmpRef[i] != null && tmpAct[j]!=null && tmpRef[i].equals(tmpAct[j])&& tmpAct[j]!=null){
                     badPlace++;
                     tmpRef[i] = null;
                     tmpAct[j] = null;
