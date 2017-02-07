@@ -2,19 +2,15 @@ package com.solaldussout_revel.mastermind.object;
 
 import java.lang.Long;
 
-/**
- * Created by Solal on 03/02/2017.
- */
-
 
 public class Game {
-    Score[] scores;
-    Integer numTour;
-    Integer tourMax;
-    String[] secretsComb;
-    String[] colors;
-    Long timeout;
-    Boolean won;
+    private Score[] scores;
+    private Integer numTour;
+    private Integer tourMax;
+    private String[] secretsComb;
+    private String[] colors;
+    private Long timeout;
+    private Boolean won;
 
     public Game() {
         this.setNumTour(1);
@@ -22,135 +18,94 @@ public class Game {
         this.setTourMax(12);
         this.setWon(false);
         this.generateSecretComb();
-
     }
 
+    //////////////////////////////////////////////////////
+    //
+    //                  INITIALIZER
+    //
+    //////////////////////////////////////////////////////
 
-    public Long getTimeout() {
-        return timeout;
-    }
-
-    public void setTimeout(Long timeout) {
-        this.timeout = timeout;
-    }
-
-    public Boolean getWon() {
-        return won;
-    }
-
-    public void setWon(Boolean won) {
-        this.won = won;
-    }
-
-    public Integer getTourMax() {
-        return tourMax;
-    }
-
-    public void setTourMax(Integer tourMax) {
-        this.tourMax = tourMax;
-    }
-
-    public String[] getColors() {
-        return colors;
-    }
-
-    public void setColors(String[] colors) {
-        this.colors = colors;
-    }
-
-    public Score[] getScores() {
-        return scores;
-    }
-
-    public void setScores(Score[] scores) {
-        this.scores = scores;
-    }
-
-    public Integer getNumTour() {
-        return numTour;
-    }
-
-    public void setNumTour(Integer numTour) {
-        this.numTour = numTour;
-    }
-
-    public String[] getSecretsComb() {
-        return secretsComb;
-    }
-
-    public void setSecretsComb(String[] secretsComb) {
-        this.secretsComb = secretsComb;
-    }
-
-    public String[] generateSecretComb(){
-        String[] secretsComb = new String[4];
-        for(int i=0; i<secretsComb.length; i++){
-            secretsComb[i] = this.getRandomHex();
-        }
-        setSecretsComb(secretsComb);
-        return secretsComb;
-    }
-
-    public void setColors(){
-        String[] colorsSet = new String[8];
-
-        colorsSet[0] = "#ffe10000";
-        colorsSet[1] = "#fff6fe00";
-        colorsSet[2] = "#ff00de2c";
-        colorsSet[3] = "#ff006fde";
-        colorsSet[4] = "#fffead44";
-        colorsSet[5] = "#fffefefe";
-        colorsSet[6] = "#ff8000d5";
-        colorsSet[7] = "#fff600fe";
-
+    //Initialize colors possible
+    private void setColors(){
+        String[] colorsSet = new String[]{ "#ffe10000", "#fff6fe00", "#ff00de2c", "#ff006fde", "#fffead44", "#fffefefe", "#ff8000d5", "#fff600fe"};
         this.setColors(colorsSet);
     }
 
 
-    private String getRandomHex(){
-        String[] colorRef = this.getColors();
+    //////////////////////////////////////////////////////
+    //
+    //                  ACTIONS
+    //
+    //////////////////////////////////////////////////////
 
-        Double r = Math.random();
-        Double l = Double.valueOf(colorRef.length);
-        Double rankDouble = Math.floor(r*l);
-        return colorRef[rankDouble.intValue()];
+
+    //Génère un tableau secret de combinaison à partir des couleurs initialisé précédemment
+    private String[] generateSecretComb(){
+
+        String[] secretsComb = new String[4];
+
+        for(int i=0; i<secretsComb.length; i++){
+            secretsComb[i] = this.getRandomColor();
+        }
+
+        setSecretsComb(secretsComb);
+        return secretsComb;
+
     }
 
-
-
+    //Rajoute un scores à la liste de score de game
     public void addScore(String[] actual){
-        Score[] actScores = this.getScores();
+
+        Score[] actScores = this.getScores(); //Actual scores tab
         Score[] newScores;
-        Score newScore;
-        String[] actualScore = new String[actual.length];
-
-        //On rajoute un champs au tableau de score
-        if(actScores!=null){
-            newScores = new Score[actScores.length+1];
-        } else {
-            newScores = new Score[1];
-        }
+        newScores  = actScores!=null ? new Score[actScores.length+1] : new Score[1];
 
 
-        //On définis le nouveau score
-        for(int i=0; i<actual.length; i++){
-            actualScore[i] = actual[i];
-        }
-        newScore = new Score(this.getSecretsComb(), actualScore);
-
+        //Hydrate le tableau new scores depuis
         if(actScores!=null){
             for(int i = 0; i<actScores.length; i++){
                 newScores[i] = actScores[i];
             }
         }
-        newScores[newScores.length-1] = newScore;
+        newScores[newScores.length-1] = new Score(this.getSecretsComb(), actual);
         this.setScores(newScores);
 
-        if(newScore.getCountGoodPosition() == 4){
-            this.setWon(true);
-        }
+
+        //On test si le jeu est gagné
+        isGameWon();
+
     };
 
+    //Increment property numTour
+    public void nextTour(){
+        this.setNumTour(this.getNumTour()+1);
+    }
+
+    //////////////////////////////////////////////////////
+    //
+    //                  TEST
+    //
+    //////////////////////////////////////////////////////
+
+    //Récupère le dernier score et test si le jeu est gagné
+    private void isGameWon(){
+        Score lastScore = this.getLastScore();
+        if(lastScore.getCountGoodPosition() == 4){
+            this.setWon(true);
+        }
+    }
+
+
+
+    //////////////////////////////////////////////////////
+    //
+    //                  GETTERS COSTUM
+    //
+    //////////////////////////////////////////////////////
+
+
+    //Récupère le dernier score
     public Score getLastScore(){
         Score[] actScores = getScores();
         if(actScores!=null){
@@ -160,7 +115,72 @@ public class Game {
         }
     }
 
-    public void nextTour(){
-        this.setNumTour(this.getNumTour()+1);
+    //Retourne une couleur aléatoire dans le tableau de couleurs initialisé précédemmment
+    private String getRandomColor(){
+        String[] colorRef = this.getColors();
+        Double r = Math.random();
+        Double l = ((Integer) colorRef.length).doubleValue();
+        Double rankDouble = Math.floor(r*l);
+        return colorRef[rankDouble.intValue()];
     }
+
+
+    //////////////////////////////////////////////////////
+    //
+    //                  GETTERS & SETTERS
+    //
+    //////////////////////////////////////////////////////
+
+    public void setTimeout(Long timeout) {
+        this.timeout = timeout;
+    }
+
+    public Boolean getWon() {
+        return won;
+    }
+
+    private void setWon(Boolean won) {
+        this.won = won;
+    }
+
+    public Integer getTourMax() {
+        return tourMax;
+    }
+
+    private void setTourMax(Integer tourMax) {
+        this.tourMax = tourMax;
+    }
+
+    public String[] getColors() {
+        return colors;
+    }
+
+    private void setColors(String[] colors) {
+        this.colors = colors;
+    }
+
+    private Score[] getScores() {
+        return scores;
+    }
+
+    private void setScores(Score[] scores) {
+        this.scores = scores;
+    }
+
+    public Integer getNumTour() {
+        return numTour;
+    }
+
+    private void setNumTour(Integer numTour) {
+        this.numTour = numTour;
+    }
+
+    private String[] getSecretsComb() {
+        return secretsComb;
+    }
+
+    private void setSecretsComb(String[] secretsComb) {
+        this.secretsComb = secretsComb;
+    }
+
 }
