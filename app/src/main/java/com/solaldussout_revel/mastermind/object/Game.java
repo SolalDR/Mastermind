@@ -1,5 +1,7 @@
 package com.solaldussout_revel.mastermind.object;
 
+import android.os.Vibrator;
+
 import java.lang.Long;
 
 
@@ -50,6 +52,13 @@ public class Game {
         }
 
         setSecretsComb(secretsComb);
+
+        System.out.println("-----------SECRETS------------");
+        for(int i=0;i<secretsComb.length; i++){
+            System.out.println(secretsComb[i]);
+        }
+        System.out.println("------------------------------");
+
         return secretsComb;
 
     }

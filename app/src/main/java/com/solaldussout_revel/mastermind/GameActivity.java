@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.ViewGroup;
@@ -206,6 +207,8 @@ public class GameActivity extends MenuParentActivity {
 
             if (game.getWon()) {
                 tourNum.setText("Bien joué ! " + game.getNumTour() + " tours");
+                Vibrator v = (Vibrator) getBaseContext().getSystemService(getBaseContext().VIBRATOR_SERVICE);
+                v.vibrate(500);
                 manageHighScore();
             } else {
                 tourNum.setText(R.string.gameLoseLabel);
