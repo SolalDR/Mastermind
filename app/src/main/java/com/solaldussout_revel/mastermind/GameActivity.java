@@ -1,5 +1,6 @@
 package com.solaldussout_revel.mastermind;
 
+
 import com.solaldussout_revel.mastermind.object.Game;
 import com.solaldussout_revel.mastermind.object.Score;
 
@@ -18,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class GameActivity extends MenuParentActivity {
@@ -35,6 +37,7 @@ public class GameActivity extends MenuParentActivity {
     TextView tourNum;
     TextView[] colorsButton;
     TextView[] colorsSelect;
+    ImageButton btnLock;
 
 
     @Override
@@ -43,17 +46,18 @@ public class GameActivity extends MenuParentActivity {
         this.game = MainActivity.getGame();
         setContentView(R.layout.activity_main);
         colors = game.getColors();
+        lock = new Boolean[]{false, false, false, false};
 
         //Get Views
         gridColor = (GridLayout) findViewById(R.id.gridColor);
         tourNum = (TextView) findViewById(R.id.tourNum);
         tableScore = (TableLayout) findViewById(R.id.tableScore);
         validScoreButton = (Button) findViewById(R.id.validScoreButton);
-        ImageButton btnLock = (ImageButton) findViewById(R.id.LockButton);
+        btnLock = (ImageButton) findViewById(R.id.LockButton);
 
 
         //Init values and listener
-        String numTour = "Tour : "+game.getNumTour();
+        String numTour = "Tour : " + game.getNumTour();
         tourNum.setText(numTour);
 
         tableScore.setOnClickListener(setTableClickListener);
@@ -96,16 +100,16 @@ public class GameActivity extends MenuParentActivity {
         };
 
         //Init listener
-        for(int i=0; i<colorsButton.length; i++){
+        for (int i = 0; i < colorsButton.length; i++) {
             colorsButton[i].setOnFocusChangeListener(setColorButtonFocus);
             colorsButton[i].setOnClickListener(setColorButtonListener);
         }
-        for(int i=0; i<colorsSelect.length; i++){
+        for (int i = 0; i < colorsSelect.length; i++) {
             colorsSelect[i].setOnClickListener(setColorListButtonClick);
         }
     }
 
-    public void initChrono(){
+    public void initChrono() {
         chrono = (Chronometer) findViewById(R.id.chrono);
         chrono.start();
         isStart = true;
@@ -120,10 +124,10 @@ public class GameActivity extends MenuParentActivity {
 
 
     //Génère une ligne de tableau
-    public void genRowTable(Score last){
+    public void genRowTable(Score last) {
 
         //Init layouts and view
-        TableRow tableRow = (TableRow)getLayoutInflater().inflate(R.layout.table_row_layout, null);
+        TableRow tableRow = (TableRow) getLayoutInflater().inflate(R.layout.table_row_layout, null);
         TextView goodPlace = (TextView) tableRow.findViewById(R.id.goodPlace);
         TextView badPlace = (TextView) tableRow.findViewById(R.id.badPlace);
         TextView[] textViewsColors = new TextView[]{
@@ -133,6 +137,8 @@ public class GameActivity extends MenuParentActivity {
                 (TextView) tableRow.findViewById(R.id.square4)
         };
 
+
+
         //Set bubble good place and bad place
         String gPlaceStr = last.getCountGoodPosition().toString();
         String bPlaceStr = last.getCountBadPosition().toString();
@@ -140,15 +146,12 @@ public class GameActivity extends MenuParentActivity {
         badPlace.setText(bPlaceStr);
 
         //Set backgrounds
-        for(int i=0; i<textViewsColors.length; i++){
+        for (int i = 0; i < textViewsColors.length; i++) {
             textViewsColors[i].setBackground(colorsButton[i].getBackground());
         }
 
-        lock = new Boolean[]{false, false, false, false};
-
         tableScore.addView(tableRow);
     }
-
 
 
     //////////////////////////////////////////////////////
@@ -158,14 +161,16 @@ public class GameActivity extends MenuParentActivity {
     //////////////////////////////////////////////////////
 
     //Remet tout les bouton de combinaison à gris
-    public void clearColorButton(){
-        for(int i=0; i<colorsButton.length; i++){
-            colorsButton[i].setBackground(new ColorDrawable(0xFFCCCCCC));
+    public void clearColorButton() {
+        for (int i = 0; i < colorsButton.length; i++) {
+            if(lock[i] != true) {
+                colorsButton[i].setBackground(new ColorDrawable(0xFFCCCCCC));
+            }
         }
     }
 
     //Met à jour le tableau de couleur active à partir de la combinaisons
-    public void setActiveColors(){
+    public void setActiveColors() {
         colors = new String[]{
                 getStrFromColorDraw((ColorDrawable) colorsButton[0].getBackground()),
                 getStrFromColorDraw((ColorDrawable) colorsButton[1].getBackground()),
@@ -182,7 +187,7 @@ public class GameActivity extends MenuParentActivity {
     //////////////////////////////////////////////////////
 
     //Callback du bouton de validation après vérification de la validité des boutons
-    public void validTour(){
+    public void validTour() {
 
         //Ajoute un score
         game.addScore(colors);
@@ -192,33 +197,33 @@ public class GameActivity extends MenuParentActivity {
         genRowTable(game.getLastScore()); //Génère une ligne de tableau à partir du dernier score
         clearColorButton();
 
+
         //Gère la fin du jeu
-        if(game.getNumTour()>game.getTourMax()||game.getWon()){
+        if (game.getNumTour() > game.getTourMax() || game.getWon()) {
 
             chrono.stop();
             game.setTimeout(chrono.getBase());
 
-            if(game.getWon()){
-                tourNum.setText("Bien joué ! "+game.getNumTour()+" tours");
+            if (game.getWon()) {
+                tourNum.setText("Bien joué ! " + game.getNumTour() + " tours");
                 manageHighScore();
             } else {
                 tourNum.setText(R.string.gameLoseLabel);
             }
 
         } else {
-            String t = "Tour : "+game.getNumTour();
+            String t = "Tour : " + game.getNumTour();
             tourNum.setText(t);
         }
     }
 
 
-
     //Gère l'update du meilleur score
-    public void manageHighScore(){
+    public void manageHighScore() {
         Long elapsed = SystemClock.elapsedRealtime() - chrono.getBase();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        Integer highScoreVal = preferences.getInt("highscore",999999);
+        Integer highScoreVal = preferences.getInt("highscore", 999999);
 
         if (highScoreVal > elapsed) {
             SharedPreferences.Editor editor = preferences.edit();
@@ -227,9 +232,6 @@ public class GameActivity extends MenuParentActivity {
         }
 
     }
-
-
-
 
 
     //////////////////////////////////////////////////////
@@ -245,6 +247,7 @@ public class GameActivity extends MenuParentActivity {
         public void onClick(View v) {
             v.requestFocus();
         }
+
     };
 
 
@@ -254,7 +257,7 @@ public class GameActivity extends MenuParentActivity {
         public void onClick(View v) {
             if (activeView != null) {
                 activeView.setBackground(v.getBackground());
-                if(!isStart){
+                if (!isStart) {
                     chrono.start();
                 }
             }
@@ -267,6 +270,7 @@ public class GameActivity extends MenuParentActivity {
         @Override
         public void onClick(View v) {
             tableScore.requestFocus();
+            updateLock(false);
 
         }
     };
@@ -278,9 +282,17 @@ public class GameActivity extends MenuParentActivity {
         public void onFocusChange(View v, boolean hasFocus) {
             if (hasFocus) {
                 activeView = (TextView) v;
+                updateLock(false);
                 gridColor.animate().translationY(dpToPx(-60)).setDuration(100);
             } else {
                 gridColor.animate().translationY(0).setDuration(100);
+            }
+
+            Integer indexActiveView = ((ViewGroup) activeView.getParent()).indexOfChild(activeView);
+            if(lock[indexActiveView]){
+                updateLock(true);
+            } else {
+                updateLock(false);
             }
         }
     };
@@ -293,16 +305,17 @@ public class GameActivity extends MenuParentActivity {
             setActiveColors();
 
             Boolean test = true;
-            for(int i=0; i<colors.length; i++){
-                if(colors[i].equals("#ffcccccc")){
+            for (int i = 0; i < colors.length; i++) {
+                if (colors[i].equals("#ffcccccc")) {
                     test = false;
                 }
             }
 
-            if(test){
+            if (test) {
                 validTour();
             } else {
-                System.out.println("Rentrez un truc");
+                Toast toast = Toast.makeText(getBaseContext(), "Veuillez remplir toute les couleurs ! <3", Toast.LENGTH_LONG);
+                toast.show();
             }
         }
     };
@@ -311,12 +324,30 @@ public class GameActivity extends MenuParentActivity {
         @Override
         public void onClick(View view) {
             Integer indexActiveView = ((ViewGroup) activeView.getParent()).indexOfChild(activeView);
-            if(lock[indexActiveView] == false){
-                lock[indexActiveView] = true;
+            String color = getStrFromColorDraw((ColorDrawable) activeView.getBackground());
+
+            if(color.equals("#ffcccccc")){
+                Toast toast = Toast.makeText(getBaseContext(), "Choisissez une couleur avant de verrouiller ! <3", Toast.LENGTH_LONG);
+                toast.show();
+            } else {
+                if (!lock[indexActiveView]) {
+                    lock[indexActiveView] = true;
+                    updateLock(true);
+                } else {
+                    lock[indexActiveView] = false;
+                    updateLock(false);
+                }
             }
         }
     };
 
+    public void updateLock(Boolean isLock) {
+        if(isLock){
+            btnLock.setBackgroundResource(R.drawable.lockclose);
+        } else {
+            btnLock.setBackgroundResource(R.drawable.lockopen);
+        }
+    }
 
     //////////////////////////////////////////////////////
     //
@@ -326,14 +357,14 @@ public class GameActivity extends MenuParentActivity {
 
 
     //Convertis une dimension en dp en px pour les animations
-    public static int dpToPx(int dp)
-    {
+    public static int dpToPx(int dp) {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
-    public String getStrFromColorDraw(ColorDrawable c){
+    public String getStrFromColorDraw(ColorDrawable c) {
         Integer i = c.getColor();
-        return "#"+Integer.toHexString(i);
+        return "#" + Integer.toHexString(i);
     }
+
 
 }
