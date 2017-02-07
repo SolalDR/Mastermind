@@ -38,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             Integer highScoreValDiv = highScoreVal/1000;
-            highscore.setText("Meilleur Score : " + highScoreValDiv.toString() + " s");
+            Integer highScoreModMin = (highScoreValDiv/60);
+            Integer highScoreModSec = highScoreValDiv%60;
+            highscore.setText("Meilleur Score : " + highScoreModMin.toString() + "m " + highScoreModSec.toString() + "s");
         }
 
     }
