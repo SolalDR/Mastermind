@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -57,6 +58,9 @@ public class GameActivity extends MenuParentActivity {
 
         validScoreButton = (Button) findViewById(R.id.validScoreButton);
         validScoreButton.setOnClickListener(validScoreButtonListener);
+
+        ImageButton btnLock = (ImageButton) findViewById(R.id.LockButton);
+        btnLock.setOnClickListener(setLockListener);
 
         manageButtonListener();
 
@@ -255,6 +259,11 @@ public class GameActivity extends MenuParentActivity {
 
     }
 
+    View.OnClickListener setLockListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
 
+        }
+    };
 
 }
