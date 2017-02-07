@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         Integer highScoreVal = preferences.getInt("highscore", 999999);
 
         if (highScoreVal == 999999) {
-            highscore.setText("Faites un score !");
+            highscore.setText(R.string.noBestScoreLabel);
         }
         else {
             Integer highScoreValDiv = highScoreVal/1000;

@@ -150,10 +150,10 @@ public class GameActivity extends MenuParentActivity {
         clearColorButton();
         this.game.nextTour();
 
-        if(game.getNumTour()>game.getTourMax()||game.getWon() == true){
+        if(game.getNumTour()>game.getTourMax()||game.getWon()){
             chrono.stop();
             game.setTimeout(chrono.getBase());
-            if(game.getWon() == true){
+            if(game.getWon()){
                 tourNum.setText("Bien joué ! "+game.getNumTour()+" tours");
                 manageHighScore();
             } else {

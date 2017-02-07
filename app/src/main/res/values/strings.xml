@@ -4,4 +4,7 @@
     <string name="title_activity_main">Mastermind</string>
     <string name="title_activity_rules">Mastermind</string>
     <string name="title_activity_menu_parent">Mastermind</string>
+
+    <!-- Activity Main -->
+    <string name="noBestScoreLabel">Faites un score !</string>
 </resources>
