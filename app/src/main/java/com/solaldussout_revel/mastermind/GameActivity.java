@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -21,18 +23,19 @@ import android.widget.TextView;
 public class GameActivity extends MenuParentActivity {
 
     Game game;
-    TextView activeView;
-    TextView tourNum;
-    Chronometer chrono;
+    String[] colors;
+    Boolean isStart;
+    Boolean[] lock;
+
     GridLayout gridColor;
     TableLayout tableScore;
-    String[] colors;
+    Chronometer chrono;
     Button validScoreButton;
-    Boolean isStart;
-
-
+    TextView activeView;
+    TextView tourNum;
     TextView[] colorsButton;
     TextView[] colorsSelect;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,8 @@ public class GameActivity extends MenuParentActivity {
         tourNum = (TextView) findViewById(R.id.tourNum);
         tableScore = (TableLayout) findViewById(R.id.tableScore);
         validScoreButton = (Button) findViewById(R.id.validScoreButton);
+        ImageButton btnLock = (ImageButton) findViewById(R.id.LockButton);
+
 
         //Init values and listener
         String numTour = "Tour : "+game.getNumTour();
@@ -53,6 +58,8 @@ public class GameActivity extends MenuParentActivity {
 
         tableScore.setOnClickListener(setTableClickListener);
         validScoreButton.setOnClickListener(validScoreButtonListener);
+        btnLock.setOnClickListener(setLockListener);
+
         manageButtonListener();
 
 
@@ -136,6 +143,8 @@ public class GameActivity extends MenuParentActivity {
         for(int i=0; i<textViewsColors.length; i++){
             textViewsColors[i].setBackground(colorsButton[i].getBackground());
         }
+
+        lock = new Boolean[]{false, false, false, false};
 
         tableScore.addView(tableRow);
     }
@@ -258,6 +267,7 @@ public class GameActivity extends MenuParentActivity {
         @Override
         public void onClick(View v) {
             tableScore.requestFocus();
+
         }
     };
 
@@ -297,10 +307,20 @@ public class GameActivity extends MenuParentActivity {
         }
     };
 
+    View.OnClickListener setLockListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Integer indexActiveView = ((ViewGroup) activeView.getParent()).indexOfChild(activeView);
+            if(lock[indexActiveView] == false){
+                lock[indexActiveView] = true;
+            }
+        }
+    };
+
 
     //////////////////////////////////////////////////////
     //
-    //              FONCTION UTILE
+    //              FONCTION CONVERSION
     //
     //////////////////////////////////////////////////////
 
@@ -311,11 +331,9 @@ public class GameActivity extends MenuParentActivity {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
-
     public String getStrFromColorDraw(ColorDrawable c){
         Integer i = c.getColor();
         return "#"+Integer.toHexString(i);
     }
-
 
 }
