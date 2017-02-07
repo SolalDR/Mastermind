@@ -7,4 +7,6 @@
 
     <!-- Activity Main -->
     <string name="noBestScoreLabel">Faites un score !</string>
+    <string name="gameLoseLabel">"Game Over Bitch"</string>
+
 </resources>

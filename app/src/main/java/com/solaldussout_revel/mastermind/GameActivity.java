@@ -3,18 +3,12 @@ package com.solaldussout_revel.mastermind;
 import com.solaldussout_revel.mastermind.object.Game;
 import com.solaldussout_revel.mastermind.object.Score;
 
-
-import android.animation.TimeInterpolator;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -34,7 +28,6 @@ public class GameActivity extends MenuParentActivity {
     TableLayout tableScore;
     String[] colors;
     Button validScoreButton;
-    Toolbar toolbar;
     Boolean isStart;
 
     TextView color1Button;
@@ -56,7 +49,8 @@ public class GameActivity extends MenuParentActivity {
         chrono.start();
         isStart = true;
         tourNum = (TextView) findViewById(R.id.tourNum);
-        tourNum.setText("Tour : "+game.getNumTour());
+        String numTour = "Tour : "+game.getNumTour();
+        tourNum.setText(numTour);
 
         tableScore = (TableLayout) findViewById(R.id.tableScore);
         tableScore.setOnClickListener(setTableClickListener);
@@ -84,9 +78,11 @@ public class GameActivity extends MenuParentActivity {
         TextView goodPlace = (TextView) tableRow.findViewById(R.id.goodPlace);
         TextView badPlace = (TextView) tableRow.findViewById(R.id.badPlace);
 
-        goodPlace.setText(last.getCountGoodPosition().toString());
-        badPlace.setText(last.getCountBadPosition().toString());
+        String gPlaceStr = last.getCountGoodPosition().toString();
+        String bPlaceStr = last.getCountBadPosition().toString();
 
+        goodPlace.setText(gPlaceStr);
+        badPlace.setText(bPlaceStr);
 
         textViewsColors[0].setBackground(color1Button.getBackground());
         textViewsColors[1].setBackground(color2Button.getBackground());
@@ -127,18 +123,17 @@ public class GameActivity extends MenuParentActivity {
                 }
             }
 
-            if(test==true){
+            if(test){
                 validTour();
             } else {
-                //Lancer un toast
+                System.out.println("Rentrez un truc");
             }
         }
     };
 
     public String getStrFromColorDraw(ColorDrawable c){
         Integer i = c.getColor();
-        String h = "#"+Integer.toHexString(i);
-        return h;
+        return "#"+Integer.toHexString(i);
     }
 
     public void validTour(){
@@ -157,10 +152,11 @@ public class GameActivity extends MenuParentActivity {
                 tourNum.setText("Bien joué ! "+game.getNumTour()+" tours");
                 manageHighScore();
             } else {
-                tourNum.setText("Game Over Bitch");
+                tourNum.setText(R.string.gameLoseLabel);
             }
         } else {
-            tourNum.setText("Tour : "+game.getNumTour());
+            String t = "Tour : "+game.getNumTour();
+            tourNum.setText(t);
         }
     }
 
@@ -182,7 +178,7 @@ public class GameActivity extends MenuParentActivity {
         if (highScoreVal > elapsed) {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putInt("highscore", elapsed.intValue());
-            editor.commit();
+            editor.apply();
         }
 
     }
@@ -194,7 +190,7 @@ public class GameActivity extends MenuParentActivity {
         public void onClick(View v) {
             if (activeView != null) {
                 activeView.setBackground(v.getBackground());
-                if(isStart == false){
+                if(!isStart){
                     chrono.start();
                 }
             }
