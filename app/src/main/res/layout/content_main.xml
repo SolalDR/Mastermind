@@ -158,7 +158,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="right">
 
             <Button
                 android:text="@string/validAction"
@@ -176,13 +177,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/lockopen"
-                android:layout_marginRight="52dp"
-                android:layout_marginEnd="52dp"
                 android:id="@+id/LockButton"
                 android:background="#00000000"
+                android:layout_weight="1"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/validScoreButton"
-                android:layout_toStartOf="@+id/validScoreButton" />
+                android:layout_toStartOf="@+id/validScoreButton"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                android:nestedScrollingEnabled="true" />
 
         </RelativeLayout>
 
