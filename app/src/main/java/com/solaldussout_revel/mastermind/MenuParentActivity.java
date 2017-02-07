@@ -2,22 +2,16 @@ package com.solaldussout_revel.mastermind;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
 
-import com.solaldussout_revel.mastermind.object.Game;
 
 public class MenuParentActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    Game game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
