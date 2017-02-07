@@ -8,5 +8,16 @@
     <!-- Activity Main -->
     <string name="noBestScoreLabel">Faites un score !</string>
     <string name="gameLoseLabel">"Game Over Bitch"</string>
+    <string name="validAction">Validez</string>
+    <string name="playLabel">Jouer</string>
+    <string name="rulesLabel">Règles du jeu</string>
 
+
+    <string name="contentRule">\nVenez découvrir l’un des plus célèbres jeux de logique !
+        \n\nLe but du jeu du Mastermind est de deviner en un minimum de coup la combinaison aléatoire générée par le jeu.
+        \n\nChaque tours de jeux consiste à la création d’une série de 4 pions, dont vous définirez de chacun la couleur dans un choix de 8 couleur différentes. Composez donc votre combinaison en appuyant tours a tours sur chacun de vos 4 pions puis choisissez une couleur. Enfin, appuyez sur validé pour comparer votre combinaison à celle recherché.
+        \n\nPour vous aider, deux types d’information :
+        \n\nLe nombre de pions bien placées et de la bonne couleur dans votre combinaison, représentés par le losange de couleur rouge.
+        \nLe nombre de pions mal placées mais de la bonne couleur dans votre combinaison, représentés par le losange de couleur grise.
+        \n\nSi vous êtes sûr de l’une de vos couleurs, vous pouvez la verrouiller grâce au petit cadenas à droite de la barre couleurs, cela permettra de garder en mémoire les couleurs que vous ne voulez plus changer.</string>
 </resources>

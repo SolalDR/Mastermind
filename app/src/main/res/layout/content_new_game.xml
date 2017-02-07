@@ -27,7 +27,7 @@
         android:textColor="#EEEEEE" />
 
     <Button
-        android:text="Jouer"
+        android:text="@string/playLabel"
         android:id="@+id/newGameButton"
         android:textSize="28sp"
         android:textAllCaps="true"
@@ -62,7 +62,7 @@
         android:layout_centerHorizontal="true" />
 
     <com.solaldussout_revel.mastermind.widget.RobotoTextView
-        android:text="Mastermind"
+        android:text="@string/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
