@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.solaldussout_revel.mastermind.MainActivity"
+    tools:context="com.solaldussout_revel.mastermind.GameActivity"
     tools:showIn="@layout/activity_main"
     android:elevation="1dp"
     android:background="@drawable/space">
@@ -74,11 +74,14 @@
         android:layout_alignBottom="@+id/barSelect"
         android:background="#DDD"
         android:id="@+id/gridColor"
+        android:translationY="0dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:layout_height="60dp">
         <TextView
             android:id="@+id/color1"
             android:background="@color/color1"
-            style="@style/colorCircle"/>
+            style="@style/colorCircle" />
         <TextView
             android:id="@+id/color2"
             android:background="@color/color2"
@@ -118,7 +121,8 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:elevation="8dp">
 
         <TextView
             android:id="@+id/color1Button"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@drawable/space">
-    tools:context="com.solaldussout_revel.mastermind.NewGameActivity">
+    tools:context="com.solaldussout_revel.mastermind.MainActivity">
 
 
 

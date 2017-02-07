@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Mastermind</string>
-    <string name="title_activity_new_game">NewGame</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_rules">RulesActivity</string>
-    <string name="title_activity_menu_parent">MenuParentActivity</string>
+    <string name="title_activity_new_game">Mastermind</string>
+    <string name="title_activity_main">Mastermind</string>
+    <string name="title_activity_rules">Mastermind</string>
+    <string name="title_activity_menu_parent">Mastermind</string>
 </resources>

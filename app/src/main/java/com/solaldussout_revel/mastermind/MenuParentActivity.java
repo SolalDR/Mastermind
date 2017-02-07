@@ -42,7 +42,7 @@ public class MenuParentActivity extends AppCompatActivity {
     MenuItem.OnMenuItemClickListener setStopGameListener = new MenuItem.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            Intent secondeActivite = new Intent(getBaseContext(), NewGameActivity.class);
+            Intent secondeActivite = new Intent(getBaseContext(), MainActivity.class);
             startActivity(secondeActivite);
             return false;
         }
