@@ -9,7 +9,18 @@ public class Score {
     private Integer countBadPosition;
 
     public Score(String[] ref, String[] act){
+        System.out.println("-------INSTANCE DE SCORE--------");
         if(ref.length == act.length && ref.length == 4){
+            System.out.println("Ref");
+            for(int i=0; i<act.length; i++){
+                System.out.println(ref[i]);
+                System.out.println("---------------");
+            }
+            System.out.println("ACTUAL");
+            for(int i=0; i<act.length; i++){
+                System.out.println(act[i]);
+                System.out.println("---------------");
+            }
             this.setReference(ref);
             this.setActual(act);
             this.compare();
@@ -23,8 +34,16 @@ public class Score {
     //////////////////////////////////////////////////////
 
     private void compare(){
-        String[] tmpRef = getReference();
-        String[] tmpAct = getActual();
+        String[] ref = getReference();
+        String[] act = getActual();
+
+        String[] tmpRef = new String[ref.length];
+        String[] tmpAct = new String[act.length];
+
+        for(int i=0; i<tmpRef.length; i++){
+            tmpRef[i] = ref[i];
+            tmpAct[i] = act[i];
+        }
 
         Integer goodPlace = 0;
         Integer badPlace = 0;

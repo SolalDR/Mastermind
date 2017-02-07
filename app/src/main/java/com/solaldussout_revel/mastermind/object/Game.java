@@ -175,7 +175,7 @@ public class Game {
         this.numTour = numTour;
     }
 
-    private String[] getSecretsComb() {
+    public String[] getSecretsComb() {
         return secretsComb;
     }
 
