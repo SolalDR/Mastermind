@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -171,17 +172,17 @@ public class MainActivity extends MenuParentActivity {
 
     public void manageHighScore(){
 
-        //Récupérer meilleur score (Chrono)
-        //chrono.getBase();
-
-        //Tester actuel et meilleur
-
-        //Update si actuel > meilleur
+        Long elapsed = SystemClock.elapsedRealtime() - chrono.getBase();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt("highscore", this.game.getScores().length);
-        editor.commit();
+        Integer highScoreVal = preferences.getInt("highscore",999999);
+
+        if (highScoreVal > elapsed) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt("highscore", elapsed.intValue());
+            editor.commit();
+        }
+
     }
 
 
@@ -191,6 +192,7 @@ public class MainActivity extends MenuParentActivity {
             if (activeView != null) {
                 activeView.setBackground(v.getBackground());
                 if(isStart == false){
+                    chrono.setBase(SystemClock.elapsedRealtime());
                     chrono.start();
                 }
             }

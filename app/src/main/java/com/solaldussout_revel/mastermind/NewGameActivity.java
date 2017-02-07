@@ -33,9 +33,15 @@ public class NewGameActivity extends AppCompatActivity {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         TextView highscore = (TextView) findViewById(R.id.highscoretext);
-        Integer highScoreVal = preferences.getInt("highscore",0);
-        highscore.setText("Meilleur Score : " + highScoreVal.toString());
+        Integer highScoreVal = preferences.getInt("highscore", 999999);
 
+        if (highScoreVal == 999999) {
+            highscore.setText("Meilleur Score : Veuillez faire un meilleur score");
+        }
+        else {
+            Integer highScoreValDiv = highScoreVal/1000;
+            highscore.setText("Meilleur Score : " + highScoreValDiv.toString() + " s");
+        }
     }
 
     View.OnClickListener setNewGameListener = new View.OnClickListener() {
