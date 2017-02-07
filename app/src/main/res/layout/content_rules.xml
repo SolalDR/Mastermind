@@ -43,7 +43,8 @@
         \n\nChaque tours de jeux consiste à la création d’une série de 4 pions, dont vous définirez de chacun la couleur dans un choix de 8 couleur différentes. Composez donc votre combinaison en appuyant tours a tours sur chacun de vos 4 pions puis choisissez une couleur. Enfin, appuyez sur validé pour comparer votre combinaison à celle recherché.
         \n\nPour vous aider, deux types d’information :
         \n\nLe nombre de pions bien placées et de la bonne couleur dans votre combinaison, représentés par le losange de couleur rouge.
-        \nLe nombre de pions mal placées mais de la bonne couleur dans votre combinaison, représentés par le losange de couleur grise."
+        \nLe nombre de pions mal placées mais de la bonne couleur dans votre combinaison, représentés par le losange de couleur grise.
+        \n\nSi vous êtes sûr de l’une de vos couleurs, vous pouvez la verrouiller grâce au petit cadenas à droite de la barre couleurs, cela permettra de garder en mémoire les couleurs que vous ne voulez plus changer."
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView"
