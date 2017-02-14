@@ -207,8 +207,6 @@ public class GameActivity extends MenuParentActivity {
 
             if (game.getWon()) {
                 tourNum.setText("Bien joué ! " + game.getNumTour() + " tours");
-                Vibrator v = (Vibrator) getBaseContext().getSystemService(getBaseContext().VIBRATOR_SERVICE);
-                v.vibrate(500);
                 manageHighScore();
             } else {
                 tourNum.setText(R.string.gameLoseLabel);
